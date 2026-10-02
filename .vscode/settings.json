@@ -1,0 +1,5 @@
+{
+  "rest-client.dotenv": "requests/.env",
+  "rest-client.enableTelemetry": false,
+  "rest-client.rememberCookiesForSubsequentRequests": true
+}

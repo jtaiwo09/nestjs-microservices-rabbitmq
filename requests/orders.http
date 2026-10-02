@@ -1,0 +1,36 @@
+@baseUrl = {{$dotenv BASE_URL}}
+
+# ─────────────────────────────────────────────
+# Orders
+# ─────────────────────────────────────────────
+# REST Client cookies are per-file. Run the Login request below first,
+# then run Create Order — the access_token cookie is set and sent automatically.
+# ─────────────────────────────────────────────
+
+
+### Login — sets the access_token cookie for this file's session
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "taiwokelvin@gmail.com",
+  "password": "pass123@@"
+}
+
+
+### Create Order — triggers the full saga (inventory → payment → confirmation)
+# Replace productId with a real UUID from the inventory seed data.
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "3f4e5a6b-7c8d-9e0f-a1b2-c3d4e5f60718",
+      "quantity": 2,
+      "unitPrice": 299.99
+    }
+  ],
+  "totalAmount": 599.98,
+  "currency": "NGN"
+}

@@ -2,6 +2,11 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
+    "graphify:build": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*", "package.json", "README.md"],
+      "outputs": ["graphify-out/**"]
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],

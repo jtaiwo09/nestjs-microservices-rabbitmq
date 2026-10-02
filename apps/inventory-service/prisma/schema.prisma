@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model OutboxEvent {
+  id          String    @id @default(uuid())
+  eventType   String
+  payload     Json
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+model InventoryItem {
+  id        String   @id @default(uuid())
+  productId String   @unique
+  quantity  Int
+  reserved  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reservations InventoryReservation[]
+}
+
+model InventoryReservation {
+  id        String            @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  status    ReservationStatus @default(RESERVED)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  inventoryItem InventoryItem @relation(fields: [productId], references: [productId])
+
+  @@unique([orderId, productId])
+  @@index([orderId])
+}
+
+enum ReservationStatus {
+  RESERVED
+  RELEASED
+}

@@ -36,3 +36,16 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Claude Code — AI assistant config and project memory
+.claude/
+CLAUDE.md
+
+# Thunder Client — local REST client collections and environments
+.thunder/
+
+# Graphify — generated knowledge graph output (built locally, not source)
+graphify-out/
+
+# Course module lessons — personal learning notes, not part of the codebase
+output/

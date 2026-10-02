@@ -1,0 +1,38 @@
+@baseUrl = {{$dotenv BASE_URL}}
+
+# ─────────────────────────────────────────────
+# Auth
+# ─────────────────────────────────────────────
+# Cookies (access_token, refresh_token) are set by the server and stored
+# automatically by REST Client's cookie jar. No manual token handling needed.
+# ─────────────────────────────────────────────
+
+
+### Register — creates a user and sets auth cookies
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "taiwokelvin@gmail.com",
+  "name": "Taiwo Joseph",
+  "password": "pass123@@"
+}
+
+
+### Login — validates credentials and sets auth cookies
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "taiwokelvin@gmail.com",
+  "password": "pass123@@"
+}
+
+
+### Refresh Tokens — rotates the refresh token, issues a new access token
+# Requires the refresh_token cookie (set after login or register).
+POST {{baseUrl}}/auth/refresh
+
+
+### Logout — invalidates the refresh token and clears cookies
+POST {{baseUrl}}/auth/logout
